@@ -123,10 +123,18 @@ export class Game {
     this.state = createInitialState(randomPlayer());
   }
 
+  /**
+   * Resets the game to initial state with a random starting player
+   */
   reset(): void {
     this.state = createInitialState(randomPlayer());
   }
 
+  /**
+   * Attempts to play a move at the given board index (0-8)
+   * @param index - Board position (0-8)
+   * @returns true if move was successful, false if invalid
+   */
   playMove(index: number): boolean {
     // Reject invalid moves
     if (index < 0 || index > 8 || this.state.status !== 'playing') {
@@ -161,31 +169,55 @@ export class Game {
     return true;
   }
 
+  /**
+   * Returns a copy of the current board state
+   */
   getBoard(): Board {
     return [...this.state.board];
   }
 
+  /**
+   * Returns the current player ('X' or 'O')
+   */
   getCurrentPlayer(): Player {
     return this.state.currentPlayer;
   }
 
+  /**
+   * Returns the current game status
+   */
   getStatus(): GameStatus {
     return this.state.status;
   }
 
+  /**
+   * Returns the winning player or null if no winner yet
+   */
   getWinner(): Player | null {
     return this.state.winner;
   }
 
+  /**
+   * Returns the indices of the winning line or null if no winner
+   */
   getWinningLine(): number[] | null {
+    /**
+     * Executes an AI move if it's the AI's turn
+     * @returns true if AI move was successful, false otherwise
+     */
     return this.state.winningLine ? [...this.state.winningLine] : null;
   }
 
-  // AI-specific methods
+  /**
+   * Returns which player is controlled by AI (always 'O')
+   */
   getAIPlayer(): Player {
     return this.state.aiPlayer;
   }
 
+  /**
+   * Returns true if it's currently the AI's turn
+   */
   isAITurn(): boolean {
     return (
       this.state.currentPlayer === this.state.aiPlayer &&

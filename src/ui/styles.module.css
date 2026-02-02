@@ -10,6 +10,7 @@
     system-ui,
     -apple-system,
     sans-serif;
+  position: relative;
 }
 
 .status {
@@ -69,4 +70,16 @@
 
 .resetButton:active {
   background-color: #2868a8;
+}
+
+.fireworks {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+  z-index: 1000;
+  display: none;
+  cursor: pointer;
 }

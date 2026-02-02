@@ -15,6 +15,8 @@ export default [
       globals: {
         document: 'readonly',
         window: 'readonly',
+        requestAnimationFrame: 'readonly',
+        cancelAnimationFrame: 'readonly',
       },
     },
     plugins: {
