@@ -1,4 +1,6 @@
-# Tic Tac Toe (minimal tsc + live-server scaffold)
+# Tic Fuck Toe 
+
+Vibe-coded tic tac toe.
 
 Local dev (watch TypeScript and serve static files):
 
