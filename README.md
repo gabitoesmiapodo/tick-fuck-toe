@@ -2,6 +2,12 @@
 
 Vibe-coded tic tac toe.
 
+# Url
+
+https://tick-fuck-toe.vercel.app/
+
+# Development / run locally
+
 Local dev (watch TypeScript and serve static files):
 
 ```bash
