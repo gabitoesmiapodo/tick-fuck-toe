@@ -19,6 +19,20 @@
   min-height: 2rem;
 }
 
+.stats {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.statItem {
+  padding: 0.25rem 0.75rem;
+  background-color: #f5f5f5;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
 .board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

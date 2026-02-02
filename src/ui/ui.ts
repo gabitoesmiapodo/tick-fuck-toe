@@ -9,6 +9,26 @@ export function mountUI(root: HTMLElement, game: Game) {
   const status = document.createElement('div');
   status.className = styles.status;
 
+  // Game statistics counter
+  const statsContainer = document.createElement('div');
+  statsContainer.className = styles.stats;
+
+  const statsHuman = document.createElement('div');
+  statsHuman.className = styles.statItem;
+  statsHuman.textContent = 'Human: 0';
+
+  const statsAI = document.createElement('div');
+  statsAI.className = styles.statItem;
+  statsAI.textContent = 'AI: 0';
+
+  const statsDraws = document.createElement('div');
+  statsDraws.className = styles.statItem;
+  statsDraws.textContent = 'Draws: 0';
+
+  statsContainer.appendChild(statsHuman);
+  statsContainer.appendChild(statsAI);
+  statsContainer.appendChild(statsDraws);
+
   const board = document.createElement('div');
   board.className = styles.board;
 
@@ -23,6 +43,7 @@ export function mountUI(root: HTMLElement, game: Game) {
   fireworksCanvas.height = 600;
 
   container.appendChild(status);
+  container.appendChild(statsContainer);
   container.appendChild(board);
   container.appendChild(resetButton);
   container.appendChild(fireworksCanvas);
@@ -31,6 +52,16 @@ export function mountUI(root: HTMLElement, game: Game) {
   // Fireworks animation state
   let animationFrameId: number | null = null;
   let particles: Particle[] = [];
+
+  // Game statistics
+  let stats = {
+    humanWins: 0,
+    aiWins: 0,
+    draws: 0,
+  };
+
+  // Track last game status to detect game end
+  let lastGameStatus: 'playing' | 'win' | 'draw' = 'playing';
 
   interface Particle {
     x: number;
@@ -153,6 +184,27 @@ export function mountUI(root: HTMLElement, game: Game) {
         cell.classList.remove(styles.winner);
       }
     });
+
+    // Detect game end and update stats (only once per game)
+    if (lastGameStatus === 'playing' && gameStatus !== 'playing') {
+      if (gameStatus === 'win' && winner) {
+        if (winner === aiPlayer) {
+          stats.aiWins++;
+        } else {
+          stats.humanWins++;
+        }
+      } else if (gameStatus === 'draw') {
+        stats.draws++;
+      }
+
+      // Update stats display
+      statsHuman.textContent = `Human: ${stats.humanWins}`;
+      statsAI.textContent = `AI: ${stats.aiWins}`;
+      statsDraws.textContent = `Draws: ${stats.draws}`;
+    }
+
+    // Track status for next render
+    lastGameStatus = gameStatus;
 
     // Update status message and fireworks
     if (gameStatus === 'win' && winner) {
